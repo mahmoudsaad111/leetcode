@@ -3,10 +3,9 @@ public:
     bool valid(vector<vector<int>>&matrix,int mid,int k){
        int cnt=0 ;
         for(int i=0;i<matrix.size();i++){
-            for(int j=0;j<matrix.size();j++){
-                if(matrix[i][j]<=mid){cnt++ ;}
-                else continue ;
-            }
+        
+        int u=upper_bound(matrix[i].begin(),matrix[i].end(),mid)-matrix[i].begin();
+            cnt+=u ;
         }  
 
         return cnt>=k ;
