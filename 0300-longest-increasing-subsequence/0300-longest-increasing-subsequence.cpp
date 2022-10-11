@@ -1,19 +1,24 @@
 class Solution {
 public:
     vector<int>vec; 
-     int arr[2502][2502]; 
-    int dp(int ind,int last,vector<int>&vec){
-        if(ind==vec.size()-1)return 0;
-        int &ret=arr[ind][last];
+     int arr[2502]; 
+    int dp(int ind,vector<int>&vec){
+        if(ind==vec.size())return 0;
+        int &ret=arr[ind];
         if(ret!=-1)return ret; 
-        
-        ret=dp(ind+1,last,vec); 
-        if(vec[ind]>vec[last])ret=max(ret,dp(ind+1,ind,vec)+1); 
+        ret=0 ;
+          for(int i=ind+1;i<vec.size();i++){
+              if(vec[i]>vec[ind])ret=max(ret,dp(i,vec)) ;
+          }
+        ret+=1;
         return ret; 
     }
     int lengthOfLIS(vector<int>& nums) {
         memset(arr,-1,sizeof(arr)); 
-        nums.push_back(-1e6); 
-     return dp(0,nums.size()-1,nums) ;
+        int ans=0; 
+        for(int i=0;i<nums.size();i++){
+            ans=max(ans,dp(i,nums)) ;
+        }
+     return ans;
     }
 };
